@@ -34,8 +34,6 @@ const RegisterPage: React.FC = () => {
   });
 
   const onSubmit = async (data: RegisterFormData) => {
-    console.log("Form Data:", data);
-    // // Handle the registration logic here
     const formattedData = {
       username: data.username,
       email: data.email,

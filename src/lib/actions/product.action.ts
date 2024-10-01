@@ -37,3 +37,60 @@ export const addProduct = async (productData: FashionProduct) => {
     handleError(error);
   }
 };
+
+export const getProductById = async (id:string)=>{
+
+  try{
+    await dbConnect();
+    const product = await FashionProductModel.findById(id);
+    if(!product){
+      return {
+        statusCode: 404,
+        message: "Product not found",
+      };
+    }
+    return {
+      statusCode: 200,
+      product: JSON.parse(JSON.stringify(product)),
+    };
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+export const getAllProducts = async () => {
+
+  try{
+    await dbConnect();
+    const products = await FashionProductModel.find({});
+    return {
+      statusCode: 200,
+      products: JSON.parse(JSON.stringify(products)),
+    };
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+
+export const updateProduct = async (id: string, formattedData: any) => {
+  try {
+    await dbConnect();
+    const product = "hello";
+    // const product = await FashionProductModel.findById(id);
+    // if(!product){
+    //   return {
+    //     statusCode: 404,
+    //     message: "Product not found",
+    //   };
+    // }
+    // find the product and update it
+    // const updatedProduct = await FashionProductModel.findByIdAndUpdate(id, productData);
+    return {
+      statusCode: 200,
+      product: JSON.parse(JSON.stringify(product)),
+    };
+  } catch (error) {
+    handleError(error);
+  }
+};

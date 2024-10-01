@@ -26,11 +26,7 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Login Data:", data);
-    // // Handle the login logic here
-
     try{
-         
            const response = await loginUser(data);
            if(response && response.statusCode ==200){
              router.push('/');

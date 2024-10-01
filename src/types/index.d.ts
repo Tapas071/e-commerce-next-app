@@ -33,6 +33,7 @@ interface Ratings {
 }
 
 export interface FashionProduct {
+  _id: string;
   title: string;
   description: string;
   price: number;
@@ -54,3 +55,9 @@ export interface FashionProduct {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type SearchParamProductIdProps = {
+  params: {
+    id: string;
+  };
+};
