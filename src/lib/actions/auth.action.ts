@@ -6,6 +6,8 @@ import { handleError } from "../utils";
 import dbConnect from "../db";
 import { IUser, IUserLoginCredentials } from "@/types";
 
+// import { LoginFormData } from "@/app/(auth)/login/page";
+// import { signIn } from "@/auth";
 // CREATE USER
 export const createUser = async (user: IUser) => {
   try {
@@ -59,5 +61,24 @@ export const logoutUser = async ()=>{
     handleError(error);
   }
 }
+
+
+export async function doCredentialLogin(formData: FormData) {
+  console.log("formData", formData);
+
+  try {
+    // const response = await signIn("credentials", {
+    //   email: formData.get("email"),
+    //   password: formData.get("password"),
+    //   redirect: false,
+    // });
+    // return response;
+    console.log(formData.get("email"));
+    console.log(formData.get("password"));
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 

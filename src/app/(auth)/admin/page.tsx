@@ -1,10 +1,8 @@
 import Navbar from '@/components/shared/Navbar'
 import React from 'react'
-import WhyNot from '@/components/AddItemsModal';
 import { getAllProducts } from '@/lib/actions/product.action';
 import { DataTable } from '@/components/DataTable';
-
-
+import AddProductForm from '@/components/AddItemsModal';
 
 
 const page = async () => {
@@ -25,7 +23,7 @@ const page = async () => {
           <Navbar />
         </div>
         <div className="">
-            <WhyNot/>
+          <AddProductForm />
         </div>
         <div className="">
           <DataTable data={allProducts} />

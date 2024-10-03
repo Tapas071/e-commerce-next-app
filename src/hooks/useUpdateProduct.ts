@@ -1,3 +1,4 @@
+// "use client"
 import { useState } from "react";
 import { updateProduct } from "@/lib/actions/product.action";
 import axios from "axios";
@@ -13,10 +14,6 @@ const useUpdateProduct = () => {
     setSuccess(false);
 
     try {
-        console.log("Product updated successfully");
-        console.log(formattedData)
-        
-        // patch the data to the server
         const updateDataResponse = await axios.patch(`/api/updateProduct?id=${productId}`, formattedData);
         const updateData = updateDataResponse.data;
       if (updateData && updateData.statusCode === 200) {

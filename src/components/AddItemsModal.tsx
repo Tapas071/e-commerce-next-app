@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { ProfileForm } from "@/components/AddItemsForm";
 
-const WhyNot = () => {
+const AddProductForm = () => {
   return (
     <>
       <AlertDialog>
@@ -31,4 +31,4 @@ const WhyNot = () => {
     </>
   );
 };
-export default WhyNot;
+export default AddProductForm;
