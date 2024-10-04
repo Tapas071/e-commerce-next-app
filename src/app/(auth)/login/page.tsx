@@ -58,12 +58,15 @@ const LoginPage: React.FC = () => {
            const formData = new FormData(form);
            console.log(formData)
            const response = await doCredentialLogin(formData);
-          //  if (!!response.error) {
-          //    console.error(response.error);
-          //    setError(response.error);
-          //  } else {
-          //    router.push("/dashboard");
-          //  }
+           if(response && response.statusCode === 200){
+            
+           }
+           if (!!response.error) {
+             console.error(response.error);
+            //  setError(response.error);
+           } else {
+             router.push("/");
+           }
          } catch (e: unknown) {
            console.error(e);
            const error = e as Error;

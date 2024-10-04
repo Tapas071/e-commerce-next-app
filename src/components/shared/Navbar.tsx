@@ -2,23 +2,26 @@
 import { useState } from "react";
 import { FaHome, FaShoppingCart, FaUser, FaSignOutAlt } from "react-icons/fa"; // Sample icons from react-icons
 import { Button } from "../ui/button";
-import { logoutUser } from "@/lib/actions/auth.action";
+import { logoutUser, logoutUserFromServer } from "@/lib/actions/auth.action";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const handleLogout = async () => {
-        try {
-            const response = await logoutUser();
-            if (response && response.statusCode == 200) {
-              // Redirect user to login page
-              router.push("/login");
-            }
-        } catch (error) {
-            console.error("An error occurred during logout", error);
-            // Handle error, show error message
-        } 
+      try {
+        const result = (await logoutUserFromServer()) as {
+          success: boolean;
+          message?: string;
+        };
+        if (result.success) {
+          router.push("/login");
+        } else {
+          console.error("An error occurred during logout:", result.message);
+        }
+      } catch (error) {
+        console.error("An error occurred during logout", error);
+      }
     };
 
   const toggleMenu = () => {

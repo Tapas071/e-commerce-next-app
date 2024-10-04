@@ -17,9 +17,7 @@ const ProductContainer: React.FC = () => {
 
       <div className="w-full flex gap 3  gap-1 bg-red-400">
         {products.map((product) => (
-          <>
-            <Products product={product} />
-          </>
+            <Products key={product._id} product={product} />
         ))}
       </div>
     </div>
