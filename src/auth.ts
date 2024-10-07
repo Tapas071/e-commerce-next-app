@@ -301,22 +301,16 @@
 // });
 
 // ----------------------------------------
- // test 6
-
-// import NextAuth from "next-auth";
-// import authConfig from "@/auth.config";
+ // test 6 ----------------- this is working code --------------------- 
 import NextAuth  from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginUser } from "./lib/actions/auth.action";
 import { authConfig } from "./auth.config";
 
-
-
 interface IUserLoginCredentials {
   email: string;
   password: string;
 }
-
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -338,21 +332,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         };
         const user2Res = await loginUser(parsedCredentials);
         if (user2Res) {
-          //   console.log(" this is userRes from server action" +user2Res);
-          //   console.log(" this is userRes from server action" +user2Res.statusCode);
-          //   console.log(" this is userRes from server action" +user2Res.user);
           if (user2Res.statusCode === 401) {
             return null;
           }
           return user2Res.user;
         }
-        // console.log(" this is userRes from server action" +user2Res);
-
-        // const user = { id: "1", name: "John Doe", email: "john@example.com" };
-
-        // if (user) {
-        //   return user;
-        // }
         return null;
       },
     }),
@@ -392,7 +376,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   //     },
   //   },
 });
-
-
-
 

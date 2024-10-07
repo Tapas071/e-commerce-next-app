@@ -1,19 +1,26 @@
 "use client"
 import React, { useState } from "react";
 import Image from "next/image";
-import { FashionProduct } from "@/types";
+import { CartItem, FashionProduct } from "@/types";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/features/cart/cartSlice";
+  //  import { CartItem, useCart } from "@/context/CartContext";
 
 interface ProductsProps {
   product: FashionProduct;
 }
 
 const Products: React.FC<ProductsProps> = ({ product }) => {
+  const dispatch = useDispatch();
+
   // State to manage the count of items in the cart
   const [count, setCount] = useState(0);
-
+  // const { addToCart } = useCart();
   // Function to handle adding to the cart
-  const handleAddToCart = () => {
+  const handleAddToCart = (cartItem: CartItem) => {
+    console.log("handleAddToCart has been called");
+    dispatch(addToCart(cartItem))
     setCount(count + 1);
   };
 
@@ -44,7 +51,14 @@ const Products: React.FC<ProductsProps> = ({ product }) => {
 
         <div className="mt-4 flex items-center space-x-4">
           <button
-            onClick={handleAddToCart}
+            onClick={()=>{
+              handleAddToCart({
+                id: (product._id),
+                name: product.title,
+                price: product.price,
+                quantity: 1,
+              })
+            }}
             className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition"
           >
             Add to Cart

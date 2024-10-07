@@ -44,6 +44,7 @@ export const loginUser = async (user: IUserLoginCredentials) => {
     if (!isPasswordMatch) {
       return { statusCode: 401, message: "Invalid credentials" };
     }
+    console.log("foundUser", foundUser);
     return {
       statusCode: 200,
       user: JSON.parse(JSON.stringify(foundUser)),

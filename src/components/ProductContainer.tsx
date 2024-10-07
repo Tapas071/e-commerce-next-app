@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import useProductData from "../hooks/useProductData";
 import Image from "next/image";

@@ -1,11 +1,16 @@
-'use client'
+// CartPage.tsx
+"use client";
+
 import React from "react";
 import Navbar from "@/components/shared/Navbar";
-import { useCart } from "@/context/CartContext";
-
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
+import { removeFromCart } from "@/redux/features/cart/cartSlice";
 
 const CartPage = () => {
-  const { cartItems, removeFromCart } = useCart();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
+  console.log(cartItems);
 
   return (
     <>
@@ -22,7 +27,7 @@ const CartPage = () => {
                   <h2>{item.name}</h2>
                   <p>Price: ${item.price}</p>
                   <p>Quantity: {item.quantity}</p>
-                  <button onClick={() => removeFromCart(item.id)}>
+                  <button onClick={() => dispatch(removeFromCart(item.id))}>
                     Remove
                   </button>
                 </div>

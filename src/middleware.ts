@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-// import { authConfig } from "./auth.config";
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 const { auth } = NextAuth(authConfig);
-
-// const { auth } = NextAuth(authConfig);
 
 import { PUBLIC_ROUTES, LOGIN, ROOT, PROTECTED_SUB_ROUTES } from "@/constants/routes";
 
 export async function middleware(request :NextRequest) {
   const { nextUrl } = request;
   const session = await auth();
+  if (!session && nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/login", nextUrl));
+  }
   const isAuthenticated = !!session?.user;
 const isPublicRoute =
     (PUBLIC_ROUTES.find((route) => nextUrl.pathname.startsWith(route))) &&
@@ -18,7 +18,7 @@ const isPublicRoute =
 
 
 if (!isAuthenticated && !isPublicRoute) {
-    return NextResponse.redirect(new URL("/testLogin", nextUrl));
+    return NextResponse.redirect(new URL("/login", nextUrl));
 }
 return NextResponse.next();
 }
