@@ -4,15 +4,17 @@ import Image from "next/image";
 import { CartItem, FashionProduct } from "@/types";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/redux/features/cart/cartSlice";
+// import { addToCart } from "@/redux/features/cart/cartSlice";
   //  import { CartItem, useCart } from "@/context/CartContext";
+  import { addToCart } from "@/redux/features/cart/cartSliceActual";
+import { useAppDispatch } from "@/redux/hooks";
 
 interface ProductsProps {
   product: FashionProduct;
 }
 
 const Products: React.FC<ProductsProps> = ({ product }) => {
-  const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
   // State to manage the count of items in the cart
   const [count, setCount] = useState(0);

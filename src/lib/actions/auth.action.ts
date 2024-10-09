@@ -88,8 +88,10 @@ export async function logoutUserFromServer() {
   try {
     const response = await signOut();
     // revalidatePath("/login");
+     revalidatePath("/login");
+     return response;
     
-    return response;
+      return { success: true, message: "Logged out successfully" };
   } catch (error) {
     return error;
   }
@@ -107,7 +109,31 @@ export async function doCredentialLogin(formData: FormData) {
   } catch (err) {
     throw err;
   }
+}
+export async function doLogout() {
+  await signOut({
+    redirectTo : "/"
+  });
+}
 
+export async function userInformation({ email }: { email: string }) {
+  try {
+    await dbConnect();
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return { statusCode: 404, message: "User not found" };
+    }
+
+    return {
+      statusCode: 200,
+      message: "Here is the user",
+      user: JSON.parse(JSON.stringify(user)), // Format the user data
+    };
+  } catch (error) {
+    handleError(error);
+    return { statusCode: 500, message: "Internal server error" };
+  }
 }
 
 

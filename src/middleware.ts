@@ -8,9 +8,7 @@ import { PUBLIC_ROUTES, LOGIN, ROOT, PROTECTED_SUB_ROUTES } from "@/constants/ro
 export async function middleware(request :NextRequest) {
   const { nextUrl } = request;
   const session = await auth();
-  if (!session && nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/login", nextUrl));
-  }
+  
   const isAuthenticated = !!session?.user;
 const isPublicRoute =
     (PUBLIC_ROUTES.find((route) => nextUrl.pathname.startsWith(route))) &&

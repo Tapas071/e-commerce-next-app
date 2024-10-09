@@ -1,16 +1,18 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import cartReducer from "@/redux/features/cart/cartSlice";
+import counterReducer from "@/redux/features/cart/cartSlice";
+import cartActReducer from "@/redux/features/cart/cartSliceActual";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["counter"], // Add other reducers here if you want to persist them
+  whitelist: ["counter", "cartAct"], // Add other reducers here if you want to persist them
 };
 
 const rootReducer = combineReducers({
-  cart: cartReducer,
+  counter: counterReducer,
+  cartAct: cartActReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
