@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { FashionProduct } from "@/types"; // Assuming you have a type defined for your product data
-import { updateProduct } from "@/lib/actions/product.action";
+// import { updateProduct } from "@/lib/actions/product.action";
 import useUpdateProduct from "@/hooks/useUpdateProduct";
 
 interface EditProductProps {

@@ -3,10 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useCallback } from "react";
+import { Key, useCallback } from "react";
 import { useDropzone, Accept } from "react-dropzone";
-import axios from "axios";
-
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Category } from "@/types"; // Make sure this is correctly imported
 import e from "express";
 import { createUser } from "@/lib/actions/auth.action";
-import { addProduct } from "@/lib/actions/product.action";
+// import { addProduct } from "@/lib/actions/product.action";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -58,6 +57,8 @@ const formSchema = z.object({
 
 
 export function ProfileForm() {
+  const [uploadedImages, setUploadedImages] = useState<{ url: string }[]>([]);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -73,19 +74,14 @@ export function ProfileForm() {
     },
   });
 
-  
-
   const onSubmit = async  (data: any) => {
-    alert("Submitted!");
-    console.log(data);
-    console.log("Submitted!");
     try {
         const SampleJSON = {
           title: data.title,
           description: data.description,
           price: parseFloat(data.price), // Convert price to a number
           category: "Footwear", // Assign a default or appropriate category
-          images: data.images.map((image: { url: string; alt: string; }) => ({
+          images: data.images.map((image: { url: string; alt: string }) => ({
             url: image.url,
             alt: image.alt,
           })),
@@ -101,8 +97,8 @@ export function ProfileForm() {
           updatedAt: new Date().toISOString(), // Set current date
         };
 
-      const response = axios.post("/api/addProduct", SampleJSON);
-      console.log(response);
+      // const response = axios.post("/api/addProduct", SampleJSON);
+      // console.log(response);
     } catch (e) {
       console.log(e);
     }
@@ -174,87 +170,61 @@ export function ProfileForm() {
                 alt: string;
               }
 
-              const onDrop = useCallback(
-                (acceptedFiles: File[]) => {
-                  const newImages: ImageFile[] = acceptedFiles.map((file) => ({
-                    url: URL.createObjectURL(file),
-                    alt: file.name,
-                  }));
-                  field.onChange([...field.value, ...newImages]);
-                },
-                [field]
-              );
+             const onDrop = useCallback(async (acceptedFiles: File[]) => {
+               const formData = new FormData();
+               acceptedFiles.forEach((file) => formData.append("file", file));
 
-              const { getRootProps, getInputProps, isDragActive } = useDropzone(
-                {
-                  onDrop,
-                  accept: { "image/*": [] } as Accept, // Accept only image files
-                }
-              );
+               try {
+                //  const response = await ut.uploadFiles(formData);
+                const response = ["some response", "another response"];
+                 if (response) {
+                   const newImages = response.map((file:any) => ({
+                     url: file.url,
+                   }));
+                   setUploadedImages((prev) => [...prev, ...newImages]);
+                 }
+               } catch (error) {
+                 console.error("Error uploading files:", error);
+               }
+             }, []);
 
-              const removeImage = (index: number) => {
-                const updatedImages = [...field.value];
-                updatedImages.splice(index, 1);
-                field.onChange(updatedImages);
-              };
+             const removeImage = (index: number) => {
+               setUploadedImages((prev:any) => prev.filter((_: any, i: number) => i !== index));
+             };
 
-              return (
-                <FormItem>
-                  <FormLabel>Images</FormLabel>
+             const { getRootProps, getInputProps, isDragActive } = useDropzone({
+               onDrop,
+               accept: { "image/*": [] } as Accept,
+             });
 
-                  <div
-                    {...getRootProps()}
-                    className={`p-4 border-2 border-dashed rounded-md cursor-pointer ${
-                      isDragActive ? "border-blue-500" : "border-gray-300"
-                    }`}
-                  >
-                    <input {...getInputProps()} />
-                    {isDragActive ? (
-                      <p>Drop the images here...</p>
-                    ) : (
-                      <p>Drag and drop images here, or click to select files</p>
-                    )}
-                  </div>
+             return (
+               <div className="form-container">
+                 <div
+                   {...getRootProps()}
+                   className={`dropzone ${isDragActive ? "active" : ""}`}
+                 >
+                   <input {...getInputProps()} />
+                   {isDragActive ? (
+                     <p>Drop the files here...</p>
+                   ) : (
+                     <p>Upload Images</p>
+                   )}
+                 </div>
 
-                  {/* Display the uploaded images */}
-                  {field.value.length > 0 && (
-                    <div className="mt-4 space-y-2">
-                      {field.value.map((image, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-4"
-                        >
-                          <img
-                            src={image.url}
-                            alt={image.alt}
-                            className="w-16 h-16 object-cover rounded-md"
-                          />
-                          <FormControl>
-                            <Input
-                              placeholder="Alt text"
-                              value={image.alt}
-                              onChange={(e) => {
-                                const newImages = [...field.value];
-                                newImages[index].alt = e.target.value;
-                                field.onChange(newImages);
-                              }}
-                            />
-                          </FormControl>
-                          <button
-                            type="button"
-                            onClick={() => removeImage(index)}
-                            className="px-2 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-600"
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  <FormMessage />
-                </FormItem>
-              );
+                 {uploadedImages.length > 0 && (
+                   <div className="image-preview">
+                     {uploadedImages.map((img: { url: string | undefined; }, index: number  ) => (
+                       <div key={index} className="image-item">
+                         <img src={img.url} alt={`Uploaded ${index}`} />
+                         <button onClick={() => removeImage(index)}>
+                           Remove
+                         </button>
+                       </div>
+                     ))}
+                   </div>
+                 )}
+               </div>
+             );
             }}
           />
 

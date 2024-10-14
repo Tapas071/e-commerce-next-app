@@ -34,7 +34,7 @@ export async function PATCH(req: NextRequest, res: NextResponse) {
     return NextResponse.json(updatedData, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error writing to spreadsheet" },
+      { error: "Error updating the product" },
       { status: 500 }
     );
   }
