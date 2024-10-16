@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const fashionProductSchema = new mongoose.Schema(
   {
-    _id : mongoose.Schema.Types.ObjectId,
+    // _id: mongoose.Schema.Types.ObjectId,
     title: { type: String, required: true, trim: true },
     description: { type: String, required: true, trim: true },
     price: { type: Number, required: true, min: 0 },
@@ -31,7 +31,7 @@ const fashionProductSchema = new mongoose.Schema(
     stock: { type: Number, required: true, min: 0 },
     brand: { type: String, required: true, trim: true },
     ratings: {
-      average: { type: Number, default: 0, min: 0, max: 5 },
+      average: { type: Number,  default: 0, min: 0, max: 5 },
       count: { type: Number, default: 0 },
     },
     createdAt: { type: Date, default: Date.now },

@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['example.com'], // Add the hostname here
+        domains: ['example.com', 'utfs.io'], // Add the hostname here
     },
 };
 

@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import Navbar from "@/components/shared/Navbar";
 import UserProfile from "@/components/UserProfile";
 import { userInformation } from "@/lib/actions/auth.action";
 import { SessionData } from "@/types";
@@ -18,7 +19,8 @@ const Page = async () => {
       const userData = await userInformation({ email });
       return (
         <div>
-          <UserProfile user={userData.user} />      
+          <Navbar />
+          <UserProfile user={userData.user} />
         </div>
       );
   }
