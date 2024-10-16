@@ -1,7 +1,7 @@
 // "use client"
 import { useState } from "react";
 import { FaHome, FaShoppingCart, FaUser, FaSignOutAlt } from "react-icons/fa"; // Sample icons from react-icons
-import { Button } from "../ui/button";
+import { RiAdminFill } from "react-icons/ri";
 import { logoutUser, logoutUserFromServer, userInformation } from "@/lib/actions/auth.action";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -29,36 +29,35 @@ const Navbar = async () => {
     }
   }
 
-  
-
-  // const toggleMenu = () => {
-  //   setIsOpen(!isOpen);
-  // };
-
   return (
     <nav className="flex items-center justify-between p-4 bg-primary text-primary-foreground">
-      <div className="text-lg font-bold">FlaxBazar</div>
+      <Link className="flex items-center" href={"/"}>
+        <div className="text-lg font-bold">FlaxBazar</div>
+      </Link>
+
       {/* <ul className={`flex space-x-4 ${isOpen ? "block" : "hidden"} md:flex`}> */}
       <ul className={`flex space-x-4 ${true ? "block" : "hidden"} md:flex`}>
         <li>
-          <a href="/" className="flex items-center">
+          <Link className="flex items-center" href={"/"}>
             <FaHome className="mr-1" /> Home
-          </a>
+          </Link>
         </li>
+
         <li>
-          <a href="/cart" className="flex items-center">
+          <Link className="flex items-center" href={"/cart"}>
             <FaShoppingCart className="mr-1" /> Cart
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/profile" className="flex items-center">
+          <Link className="flex items-center" href={"/profile"}>
             <FaUser className="mr-1" /> Profile
-          </a>
+          </Link>
         </li>
         <li>
           {isAdmin ? (
-            <Link href="/admin">
-              <div className="flex items-center">Admin Dashboard</div>
+            <Link className="flex items-center" href="/admin">
+              <RiAdminFill className="mr-1" />
+              Admin Dashboard
             </Link>
           ) : null}
         </li>

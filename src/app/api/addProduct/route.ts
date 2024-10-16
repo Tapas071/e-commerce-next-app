@@ -3,32 +3,37 @@ import FashionProductModel from "@/lib/models/FashionProduct";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-
-  try{
+  try {
     const data = await req.json();
-    // console.log(data);
 
     await dbConnect();
-    // const newProductMappedData = {
-    //   title: data.title,
-    //   description: data.description,
-    //   price: data.price,
-    //   // category: data.category ,
-    //   images: data.images,
-    //   sizes: data.sizes,
-    //   colors: data.colors,
-    //   stock: data.stock,
-    //   brand: data.brand,
-    // };
-    // const newProduct = "sample new Product"
-    // console.log(newProductMappedData);
-    const newProduct = await FashionProductModel.create(data);
-    // await newProduct.save();
 
+    // Parse images, sizes, and colors from JSON strings
+    const images = JSON.parse(data.images);
+    const sizes = JSON.parse(data.sizes);
+    const colors = JSON.parse(data.colors);
+
+    const newProductMappedData = {
+      title: data.title,
+      description: data.description,
+      price: parseFloat(data.price), // Convert price to float
+      category: "Footwear", 
+      images: images, 
+      sizes: sizes, 
+      colors: colors, 
+      stock: parseInt(data.stock), // Convert stock to integer
+      brand: data.brand,
+    };
+
+    const newProduct = await FashionProductModel.create(newProductMappedData);
+    await newProduct.save();
 
     return NextResponse.json(newProduct, { status: 200 });
-  }catch(error){
+  } catch (error) {
     console.log(error);
-    return NextResponse.json({error : "error has been occured"},{status : 500})
+    return NextResponse.json(
+      { error: "An error has occurred" },
+      { status: 500 }
+    );
   }
 }

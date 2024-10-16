@@ -2,8 +2,11 @@ import Navbar from "@/components/shared/Navbar";
 import { getProductById } from "@/lib/actions/product.action";
 import { SearchParamProductIdProps } from "@/types";
 import React from "react";
+import Image from "next/image";
 
-const page = async ({ params: { id } }: SearchParamProductIdProps) => {
+const ProductDetailPage = async ({
+  params: { id },
+}: SearchParamProductIdProps) => {
   const response = await getProductById(id);
   const product = response?.product;
 
@@ -16,54 +19,87 @@ const page = async ({ params: { id } }: SearchParamProductIdProps) => {
   const imageUrl = product.images[0]?.url || "/images/placeholder.png"; // Fallback image
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto p-6">
-        {/* <h1 className="text-2xl font-bold mb-4">Product ID: {id}</h1> */}
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <img
-            src={imageUrl}
-            alt={product.images[0]?.alt || "Product Image"}
-            className="w-full h-64 object-cover"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
-            <p className="text-gray-700 mb-3">{product.description}</p>
-            <div className="text-lg font-bold text-red-600 mb-3">
-              ${product.price.toFixed(2)}
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-card rounded-xl shadow-lg overflow-hidden">
+          <div className="md:flex">
+            <div className="md:flex-shrink-0">
+              <div className="relative h-96 w-full md:w-96">
+                <Image
+                  src={imageUrl}
+                  alt={product.images[0]?.alt || "Product Image"}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-t-xl md:rounded-l-xl md:rounded-t-none"
+                />
+              </div>
             </div>
-            <div className="mb-3">
-              <span className="font-semibold">Ratings: </span>
-              <span className="text-yellow-500">
-                {product.ratings.average} ⭐
-              </span>
-              <span className="text-gray-500">
-                {" "}
-                ({product.ratings.count} reviews)
-              </span>
-            </div>
-            <div className="specs">
-              <div className="mb-2">
-                <strong>Category:</strong> {product.category}
+            <div className="p-8">
+              <div className="uppercase tracking-wide text-sm text-accent-foreground font-semibold">
+                {product.brand}
               </div>
-              <div className="mb-2">
-                <strong>Brand:</strong> {product.brand}
+              <h1 className="mt-1 text-3xl font-bold text-primary">
+                {product.title}
+              </h1>
+              <p className="mt-2 text-muted-foreground">
+                {product.description}
+              </p>
+
+              <div className="mt-4 flex items-center">
+                <div className="text-2xl font-bold text-accent-foreground">
+                  ${product.price.toFixed(2)}
+                </div>
+                <div className="ml-4 text-sm text-muted-foreground">
+                  {product.stock > 0
+                    ? `${product.stock} in stock`
+                    : "Out of stock"}
+                </div>
               </div>
-              <div className="mb-2">
-                <strong>Stock:</strong> {product.stock} available
+
+              <div className="mt-4">
+                <span className="text-yellow-500 text-lg">
+                  {"★".repeat(Math.round(product.ratings.average))}
+                </span>
+                <span className="text-muted-foreground ml-2">
+                  ({product.ratings.count} reviews)
+                </span>
               </div>
-              <div className="mb-2">
-                <strong>Sizes:</strong> {product.sizes.join(", ")}
+
+              <div className="mt-6 border-t border-border pt-4">
+                <div className="flex flex-wrap">
+                  <div className="w-full sm:w-1/2 mb-4">
+                    <strong className="text-primary">Category:</strong>
+                    <span className="ml-2 text-muted-foreground">
+                      {product.category}
+                    </span>
+                  </div>
+                  <div className="w-full sm:w-1/2 mb-4">
+                    <strong className="text-primary">Sizes:</strong>
+                    <span className="ml-2 text-muted-foreground">
+                      {product.sizes.join(", ")}
+                    </span>
+                  </div>
+                  <div className="w-full sm:w-1/2 mb-4">
+                    <strong className="text-primary">Colors:</strong>
+                    <span className="ml-2 text-muted-foreground">
+                      {product.colors.join(", ")}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="mb-2">
-                <strong>Colors:</strong> {product.colors.join(", ")}
+
+              <div className="mt-6">
+                <button className="bg-primary text-primary-foreground px-6 py-2 rounded-md hover:bg-primary/90 transition-colors duration-300">
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default page;
+export default ProductDetailPage;

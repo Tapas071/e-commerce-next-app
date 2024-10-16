@@ -5,11 +5,8 @@ import { userInformation } from "@/lib/actions/auth.action";
 import { SessionData } from "@/types";
 import React from "react";
 
-
-
 const Page = async () => {
   const session: SessionData | null = await auth();
-
   if (!session) {
     return <div>No session available</div>;
   }
