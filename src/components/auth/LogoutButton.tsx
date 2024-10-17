@@ -1,7 +1,8 @@
 import { doLogout } from '@/lib/actions/auth.action'
 import React from 'react'
-import { Button } from './ui/button'
+
 import { FaSignOutAlt } from 'react-icons/fa'
+import { Button } from '../ui/button'
 
 const LogoutButton = () => {
   return (
@@ -18,5 +19,4 @@ const LogoutButton = () => {
     </form>
   )
 }
-
 export default LogoutButton

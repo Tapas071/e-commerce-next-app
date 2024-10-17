@@ -20,7 +20,9 @@ const ProductDetailPage = async ({
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <div className="fixed top-0 left-0 w-full z-50">
+        <Navbar />
+      </div>
       <div className="container mx-auto px-4 py-8">
         <div className="bg-card rounded-xl shadow-lg overflow-hidden">
           <div className="md:flex">

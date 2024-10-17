@@ -6,9 +6,10 @@ import { logoutUser, logoutUserFromServer, userInformation } from "@/lib/actions
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/auth";
-import LoginButton from "../LoginButton";
-import LogoutButton from "../LogoutButton";
+
 import { SessionData } from "@/types";
+import LogoutButton from "../auth/LogoutButton";
+import LoginButton from "../auth/LoginButton";
 
 const Navbar = async () => {
     // const [isOpen, setIsOpen] = useState(false);

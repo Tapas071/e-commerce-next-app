@@ -16,7 +16,9 @@ const Page = async () => {
       const userData = await userInformation({ email });
       return (
         <div>
-          <Navbar />
+          <div className="fixed top-0 left-0 w-full z-50">
+            <Navbar />
+          </div>
           <UserProfile user={userData.user} />
         </div>
       );

@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "E-Commerce App",
+  title: "Flexbazar",
   description: "E-Commerce App built with Next.js and MongoDB",
 };
 
