@@ -3,6 +3,7 @@ import ProductContainer from "@/components/ProductContainer";
 import Navbar from "@/components/shared/Navbar";
 import { auth } from "@/auth";
 import Slideshow from "@/components/SlideShowHome";
+import CartItemCount from "@/components/CartitemsNumber";
 
 export default async function Home() {
   const session = await auth();
@@ -17,6 +18,7 @@ export default async function Home() {
       {/* Product Section */}
       <div className="pt-16">
         <ProductContainer />
+        
       </div>
     </div>
   );

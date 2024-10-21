@@ -48,7 +48,6 @@ const RegisterPage: React.FC = () => {
 
       } catch (error) {
         console.error("An error occurred during registration", error);
-        // Handle error, show error message
       }
 
   };

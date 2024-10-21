@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FashionProduct } from "@/types"; // Assuming you have a type defined for your product data
 // import { updateProduct } from "@/lib/actions/product.action";
 import useUpdateProduct from "@/hooks/useUpdateProduct";
+import useDeleteProduct from "@/hooks/useDeleteProduct";
 
 interface EditProductProps {
   product: FashionProduct;
@@ -12,6 +13,7 @@ interface EditProductProps {
 const EditProduct: React.FC<EditProductProps> = ({ product }) => {
   const [editableProduct, setEditableProduct] = useState(product);
   const { handleUpdate, loading, error, success } = useUpdateProduct();
+  const { handleDelete, loadingDel, errorDel, successDel } = useDeleteProduct();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,6 +24,9 @@ const EditProduct: React.FC<EditProductProps> = ({ product }) => {
  const onUpdateClick = () => {
    handleUpdate(product._id, editableProduct);
  };
+ const onDeleteClick = () => {
+    handleDelete(product._id);
+  }
  
   return (
     <div className="container mx-auto p-6">
@@ -121,6 +126,16 @@ const EditProduct: React.FC<EditProductProps> = ({ product }) => {
           {success && (
             <p style={{ color: "green" }}>Product updated successfully</p>
           )}
+        </div>
+        <div>
+          {/* Your form or UI for editing the product */}
+          <button onClick={onDeleteClick}>
+            {loadingDel ? "Deleting..." : "Delete Product"}
+          </button>
+           {errorDel && <p style={{ color: "red" }}>{errorDel}</p>}
+          {successDel && (
+            <p style={{ color: "green" }}>Product updated successfully</p>
+          )} 
         </div>
       </div>
     </div>

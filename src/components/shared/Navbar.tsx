@@ -10,6 +10,7 @@ import { auth } from "@/auth";
 import { SessionData } from "@/types";
 import LogoutButton from "../auth/LogoutButton";
 import LoginButton from "../auth/LoginButton";
+import CartItemCount from "../CartitemsNumber";
 
 const Navbar = async () => {
     // const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +47,13 @@ const Navbar = async () => {
 
         <li>
           <Link className="flex items-center" href={"/cart"}>
-            <FaShoppingCart className="mr-1" /> Cart
+            <div className="flex justify-center items-center ">
+              <div className=" flex justify-center items-center">
+                <FaShoppingCart className="mr-1" />
+                <CartItemCount />
+              </div>
+              <span className="text-white">Cart</span>
+            </div>
           </Link>
         </li>
         <li>
