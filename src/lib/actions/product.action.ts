@@ -36,3 +36,24 @@ export const getAllProducts = async () => {
     handleError(error);
   }
 }
+
+export const addFeaturedProduct = async (productId: string) => {
+  try {
+    // await dbConnect();
+    // const product = await FashionProductModel.findById(productId);
+    // if (!product) {
+    //   return {
+    //     statusCode: 404,
+    //     message: "Product not found",
+    //   };
+    // }
+    // product.isFeatured = true;
+    // await product.save();
+    // return {
+    //   statusCode: 200,
+    //   message: "Product added to featured products",
+    // };
+  } catch (error) {
+    handleError(error);
+  }
+}

@@ -53,10 +53,14 @@ interface DataTableProps<TData> {
         const product = row.original;
 
         return (
-          <>
-              <Link href={`/admin/products/${product._id}`}>Edit</Link>
-            
-          </>
+          <div className="flex space-x-2">
+            <Link
+              href={`/admin/products/${product._id}`}
+              className=""
+            >
+              Edit
+            </Link>
+          </div>
         );
       },
     },
