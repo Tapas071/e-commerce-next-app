@@ -2,7 +2,7 @@ import dbConnect from "@/lib/db";
 import FashionProductModel from "@/lib/models/FashionProduct";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
 

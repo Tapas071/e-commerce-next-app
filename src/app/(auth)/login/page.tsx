@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
-import { doCredentialLogin, loginUser } from "@/lib/actions/auth.action";
+import { doCredentialLogin } from "@/lib/actions/auth.action";
 import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
@@ -19,7 +19,6 @@ const LoginPage: React.FC = () => {
   const router = useRouter();
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -69,7 +68,6 @@ const LoginPage: React.FC = () => {
            }
          } catch (e: unknown) {
            console.error(e);
-           const error = e as Error;
           //  setError("wrong credentials");
            // throw new Error("Wrong  credentials")
          }

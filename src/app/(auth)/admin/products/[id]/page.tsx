@@ -2,7 +2,6 @@ import EditProduct from "@/components/EditProduct";
 import Navbar from "@/components/shared/Navbar";
 import { getProductById } from "@/lib/actions/product.action";
 import { SearchParamProductIdProps } from "@/types";
-import React, { useState } from "react";
 
 const Page = async ({ params: { id } }: SearchParamProductIdProps) => {
   const response = await getProductById(id);
@@ -14,7 +13,6 @@ const Page = async ({ params: { id } }: SearchParamProductIdProps) => {
     };
   }
 
-  const imageUrl = product.images[0]?.url || "/images/placeholder.png"; // Fallback image
   
   return (
     <>
