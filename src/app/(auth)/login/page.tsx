@@ -130,7 +130,9 @@ const LoginPage: React.FC = () => {
 
         {/* Link to Register Page */}
         <p className="text-center text-sm mt-4">
-          Don't have an account?{" "}
+          {
+          "Don't have an account?"
+          }
           <Link href="/register" className="text-primary hover:underline">
             Register here
           </Link>

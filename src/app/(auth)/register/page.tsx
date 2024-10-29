@@ -9,7 +9,7 @@ import { createUser } from "@/lib/actions/auth.action";
 import { useRouter } from "next/navigation";
 // import { RegisterFormData, registerSchema } from "../../../types/index";
 
-export const registerSchema = z
+ const registerSchema = z
   .object({
     username: z.string().min(3, "Username must be at least 3 characters"),
     email: z.string().email("Invalid email address"),
@@ -23,7 +23,7 @@ export const registerSchema = z
     message: "Passwords must match",
   });
 
-export type RegisterFormData = z.infer<typeof registerSchema>;
+ type RegisterFormData = z.infer<typeof registerSchema>;
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();

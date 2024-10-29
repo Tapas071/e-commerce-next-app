@@ -52,11 +52,11 @@ export default function Slideshow() {
             index === currentIndex ? "opacity-100" : "opacity-0"
           }`}
         >
-          <img
+          {/* <img
             src={discount.image}
             alt={discount.title}
             className="w-full h-full object-cover"
-          />
+          /> */}
           <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white text-center p-4">
             <h2 className="text-4xl md:text-6xl font-bold">{discount.title}</h2>
             <p className="mt-4 text-lg md:text-2xl">{discount.description}</p>
